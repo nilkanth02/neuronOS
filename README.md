@@ -1,7 +1,7 @@
 # NeuronOS
 
 <p align="center">
-  <img src="ui/branding/logo.png" alt="NeuronOS Logo" width="200">
+  <img src="ui/branding/new_logo.png" alt="NeuronOS Logo" width="200">
 </p>
 
 <p align="center">
