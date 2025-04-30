@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to NeuronOS</title>
+    <!-- Favicon -->
+    <link rel="icon" href="/usr/share/neuronos/branding/new_logo.svg" type="image/png">
+    <!-- Fallback favicon for browsers that don't support PNG -->
+    <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImEiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiM2MzY2ZjEiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM4YjVjZjYiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgZmlsbD0iIzA5MDkwYiIgcng9IjEyOCIvPjxjaXJjbGUgY3g9IjI1NiIgY3k9IjI1NiIgcj0iODAiIGZpbGw9InVybCgjYSkiLz48cGF0aCBkPSJNMTc2IDE3NkwxMDAgMTAwTTMzNiAxNzZMNDEyIDEwME0xNzYgMzM2TDEwMCA0MTJNMzM2IDMzNkw0MTIgNDEyTTI1NiAxNzZMMjU2IDEwME0xNzYgMjU2TDEwMCAyNTZNMzM2IDI1Nkw0MTIgMjU2TTI1NiAzMzZMMjU2IDQxMiIgc3Ryb2tlPSJ1cmwoI2EpIiBzdHJva2Utd2lkdGg9IjEyIi8+PGNpcmNsZSBjeD0iMTAwIiBjeT0iMTAwIiByPSIyMCIgZmlsbD0iIzk4YzM3OSIvPjxjaXJjbGUgY3g9IjQxMiIgY3k9IjEwMCIgcj0iMjAiIGZpbGw9IiM5OGMzNzkiLz48Y2lyY2xlIGN4PSIxMDAiIGN5PSI0MTIiIHI9IjIwIiBmaWxsPSIjOThjMzc5Ii8+PGNpcmNsZSBjeD0iNDEyIiBjeT0iNDEyIiByPSIyMCIgZmlsbD0iIzk4YzM3OSIvPjxjaXJjbGUgY3g9IjEwMCIgY3k9IjI1NiIgcj0iMjAiIGZpbGw9IiM5OGMzNzkiLz48Y2lyY2xlIGN4PSI0MTIiIGN5PSIyNTYiIHI9IjIwIiBmaWxsPSIjOThjMzc5Ii8+PGNpcmNsZSBjeD0iMjU2IiBjeT0iMTAwIiByPSIyMCIgZmlsbD0iIzk4YzM3OSIvPjxjaXJjbGUgY3g9IjI1NiIgY3k9IjQxMiIgcj0iMjAiIGZpbGw9IiM5OGMzNzkiLz48L3N2Zz4=" type="image/svg+xml">
+    <style>
+        /* Modern CSS Variables */
+        :root {
+            --background: #09090b;
+            --foreground: #fafafa;
+            --card: #171717;
+            --card-foreground: #fafafa;
+            --popover: #171717;
+            --popover-foreground: #fafafa;
+            --primary: #6366f1;
+            --primary-foreground: #fafafa;
+            --secondary: #8b5cf6;
+            --secondary-foreground: #fafafa;
+            --muted: #262626;
+            --muted-foreground: #a3a3a3;
+            --accent: #262626;
+            --accent-foreground: #fafafa;
+            --destructive: #ef4444;
+            --destructive-foreground: #fafafa;
+            --border: #262626;
+            --input: #262626;
+            --ring: #6366f1;
+            --radius: 0.5rem;
+        }
+
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: var(--background);
+            color: var(--foreground);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Modern Glassmorphism Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.15), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.15), transparent 25%);
+            z-index: -1;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 3rem 0;
+            position: relative;
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 1.5rem;
+            filter: drop-shadow(0 0 0.75rem rgba(99, 102, 241, 0.5));
+            animation: pulse 2s infinite alternate;
+        }
+
+        @keyframes pulse {
+            from {
+                transform: scale(1);
+                filter: drop-shadow(0 0 0.75rem rgba(99, 102, 241, 0.5));
+            }
+            to {
+                transform: scale(1.05);
+                filter: drop-shadow(0 0 1rem rgba(99, 102, 241, 0.8));
+            }
+        }
+
+        .title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            letter-spacing: -0.025em;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--muted-foreground);
+            max-width: 600px;
+            margin-bottom: 2rem;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 2rem;
+            width: 100%;
+            max-width: 800px;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .tab {
+            padding: 0.75rem 1.5rem;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            color: var(--muted-foreground);
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .tab.active {
+            color: var(--foreground);
+        }
+
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+        }
+
+        .tab:hover {
+            color: var(--foreground);
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Card Styles */
+        .card {
+            background: rgba(23, 23, 23, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: var(--radius);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(99, 102, 241, 0.05), rgba(139, 92, 246, 0.05));
+            z-index: -1;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .hero-card {
+            background: linear-gradient(135deg, rgba(23, 23, 23, 0.8), rgba(23, 23, 23, 0.6));
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            padding: 2rem;
+        }
+
+        .card-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .card-description {
+            color: var(--muted-foreground);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        /* Button Styles */
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background: linear-gradient(to right, var(--primary), rgba(99, 102, 241, 0.8));
+            color: var(--primary-foreground);
+            font-weight: 500;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius);
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+
+        .button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: all 0.6s ease;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(99, 102, 241, 0.4);
+        }
+
+        .button:hover::before {
+            left: 100%;
+        }
+
+        .button.secondary {
+            background: linear-gradient(to right, var(--secondary), rgba(139, 92, 246, 0.8));
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+        }
+
+        .button.secondary:hover {
+            box-shadow: 0 6px 16px rgba(139, 92, 246, 0.4);
+        }
+
+        .button.small {
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+        }
+
+        .button-icon {
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+
+        /* Section Title */
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 2.5rem 0 1.5rem;
+            color: var(--foreground);
+            position: relative;
+            padding-left: 1rem;
+        }
+
+        .section-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.25rem;
+            height: 1.5rem;
+            width: 4px;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        /* Feature Grid */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .feature-card {
+            background: rgba(38, 38, 38, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: var(--radius);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .feature-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 3rem;
+            height: 3rem;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2));
+            border-radius: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-icon svg {
+            color: var(--primary);
+        }
+
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--foreground);
+        }
+
+        .feature-description {
+            color: var(--muted-foreground);
+            margin-bottom: 1rem;
+        }
+
+        .feature-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0 0 1.5rem;
+        }
+
+        .feature-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--muted-foreground);
+        }
+
+        .feature-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0.25rem;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        /* App Grid */
+        .app-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .app-card {
+            background: rgba(38, 38, 38, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: var(--radius);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .app-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .app-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 3rem;
+            height: 3rem;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2));
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+        }
+
+        .app-icon svg {
+            color: var(--primary);
+        }
+
+        .app-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--foreground);
+        }
+
+        .app-description {
+            color: var(--muted-foreground);
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        /* System Info Card */
+        .system-info-card {
+            background: linear-gradient(135deg, rgba(23, 23, 23, 0.8), rgba(23, 23, 23, 0.6));
+            border: 1px solid rgba(99, 102, 241, 0.1);
+        }
+
+        .system-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .info-label {
+            color: var(--muted-foreground);
+            font-size: 0.875rem;
+        }
+
+        .info-value {
+            color: var(--foreground);
+            font-weight: 500;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            color: var(--muted-foreground);
+            border-top: 1px solid var(--border);
+        }
+
+        .heart {
+            display: inline-block;
+            color: var(--destructive);
+            animation: beat 1s infinite alternate;
+        }
+
+        @keyframes beat {
+            from {
+                transform: scale(1);
+            }
+            to {
+                transform: scale(1.2);
+            }
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .tabs {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+
+            .tab {
+                padding: 0.5rem 1rem;
+                font-size: 0.875rem;
+            }
+
+            .feature-grid, .app-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .title {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .header {
+                padding: 2rem 0;
+            }
+
+            .title {
+                font-size: 2rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .card {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <img src="/usr/share/neuronos/branding/new_logo.png" alt="NeuronOS Logo" class="logo">
+            <h1 class="title">Welcome to NeuronOS</h1>
+            <p class="subtitle">Your personalized operating system for Data Science and AI</p>
+
+            <div class="tabs">
+                <button class="tab active" onclick="openTab(event, 'getting-started')">Getting Started</button>
+                <button class="tab" onclick="openTab(event, 'features')">Features</button>
+                <button class="tab" onclick="openTab(event, 'apps')">Applications</button>
+                <button class="tab" onclick="openTab(event, 'help')">Help & Support</button>
+            </div>
+        </header>
+        <!-- Getting Started Tab -->
+        <div id="getting-started" class="tab-content active">
+            <div class="card hero-card">
+                <div class="card-content">
+                    <h2 class="card-title">Welcome to NeuronOS!</h2>
+                    <p class="card-description">NeuronOS is a specialized Linux distribution designed for data science and AI development. It comes pre-configured with the most popular tools and libraries to help you innovate faster.</p>
+                    <div class="button-group">
+                        <a href="#" onclick="window.location='jupyter-lab'" class="button primary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="button-icon"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path><path d="m2 12 3-3 3 3-3 3-3-3Z"></path><path d="m16 6 3 3-3 3"></path><path d="M8 6h8"></path><path d="M16 18h-4"></path><path d="M8 18h0"></path></svg>
+                            Launch Jupyter
+                        </a>
+                        <a href="#" onclick="window.location='code'" class="button primary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="button-icon"><path d="m18 16 4-4-4-4"></path><path d="m6 8-4 4 4 4"></path><path d="m14.5 4-5 16"></path></svg>
+                            Open VS Code
+                        </a>
+                        <a href="#" onclick="window.location='xfce4-terminal'" class="button secondary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="button-icon"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" x2="20" y1="19" y2="19"></line></svg>
+                            Open Terminal
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="section-title">Quick Start Guide</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect><line x1="3" x2="21" y1="9" y2="9"></line><line x1="9" x2="9" y1="21" y2="9"></line></svg>
+                    </div>
+                    <h3 class="feature-title">Data Analysis</h3>
+                    <p class="feature-description">Start analyzing your data right away with pre-installed tools:</p>
+                    <ul class="feature-list">
+                        <li>Jupyter Notebook/Lab</li>
+                        <li>Python with Pandas, NumPy</li>
+                        <li>R with RStudio</li>
+                        <li>SQL tools</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                    </div>
+                    <h3 class="feature-title">Machine Learning</h3>
+                    <p class="feature-description">Build and train models using popular frameworks:</p>
+                    <ul class="feature-list">
+                        <li>TensorFlow and PyTorch</li>
+                        <li>Scikit-learn</li>
+                        <li>XGBoost and LightGBM</li>
+                        <li>Hugging Face Transformers</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 16 4-4-4-4"></path><path d="m6 8-4 4 4 4"></path><path d="m14.5 4-5 16"></path></svg>
+                    </div>
+                    <h3 class="feature-title">Development</h3>
+                    <p class="feature-description">Use modern development tools:</p>
+                    <ul class="feature-list">
+                        <li>VS Code with extensions</li>
+                        <li>Git integration</li>
+                        <li>Docker containers</li>
+                        <li>Terminal with ZSH</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Features Tab -->
+        <div id="features" class="tab-content">
+            <div class="card hero-card">
+                <div class="card-content">
+                    <h2 class="card-title">NeuronOS Features</h2>
+                    <p class="card-description">NeuronOS is designed to be fast, modern, and optimized for data science and AI workflows. Here are some of its key features:</p>
+                </div>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m13 2-2 2.5h3L12 7"></path><path d="M10 15v-2.5a2.5 2.5 0 0 1 5 0v2.5"></path><path d="M10 15v-1a2.5 2.5 0 0 0-5 0v1"></path><path d="M10 15v6"></path><path d="M14 15v6"></path><path d="M5 15v6"></path><path d="M19 15v6"></path><path d="M3 21h18"></path></svg>
+                    </div>
+                    <h3 class="feature-title">Fast & Optimized</h3>
+                    <p class="feature-description">NeuronOS is optimized for performance:</p>
+                    <ul class="feature-list">
+                        <li>Lightweight desktop environment</li>
+                        <li>Optimized kernel parameters</li>
+                        <li>Efficient memory management</li>
+                        <li>SSD optimizations</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" x2="9.01" y1="9" y2="9"></line><line x1="15" x2="15.01" y1="9" y2="9"></line></svg>
+                    </div>
+                    <h3 class="feature-title">Modern UI</h3>
+                    <p class="feature-description">Enjoy a clean, modern interface:</p>
+                    <ul class="feature-list">
+                        <li>Dark theme optimized for long sessions</li>
+                        <li>Modern fonts and icons</li>
+                        <li>Intuitive application launcher</li>
+                        <li>Customizable desktop</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg>
+                    </div>
+                    <h3 class="feature-title">Pre-installed Tools</h3>
+                    <p class="feature-description">All the tools you need, ready to use:</p>
+                    <ul class="feature-list">
+                        <li>Data science libraries and frameworks</li>
+                        <li>Development environments</li>
+                        <li>Visualization tools</li>
+                        <li>Productivity applications</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                    </div>
+                    <h3 class="feature-title">Easy to Extend</h3>
+                    <p class="feature-description">Customize to fit your needs:</p>
+                    <ul class="feature-list">
+                        <li>Simple package management</li>
+                        <li>Conda/Mamba integration</li>
+                        <li>Docker support</li>
+                        <li>Custom performance profiles</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                    </div>
+                    <h3 class="feature-title">Secure & Stable</h3>
+                    <p class="feature-description">Built on a solid foundation:</p>
+                    <ul class="feature-list">
+                        <li>Based on Ubuntu LTS</li>
+                        <li>Regular security updates</li>
+                        <li>Stable package versions</li>
+                        <li>Backup and recovery tools</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    </div>
+                    <h3 class="feature-title">Community Support</h3>
+                    <p class="feature-description">You're not alone:</p>
+                    <ul class="feature-list">
+                        <li>Active community</li>
+                        <li>Comprehensive documentation</li>
+                        <li>Tutorials and examples</li>
+                        <li>Regular updates</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Applications Tab -->
+        <div id="apps" class="tab-content">
+            <div class="card hero-card">
+                <div class="card-content">
+                    <h2 class="card-title">Pre-installed Applications</h2>
+                    <p class="card-description">NeuronOS comes with a variety of applications pre-installed to help you with your data science and AI workflows.</p>
+                </div>
+            </div>
+
+            <h2 class="section-title">Data Science & AI</h2>
+            <div class="app-grid">
+                <div class="app-card">
+                    <div class="app-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                    </div>
+                    <h3 class="app-title">Jupyter</h3>
+                    <p class="app-description">Interactive computing environment</p>
+                    <a href="#" onclick="window.location='jupyter-lab'" class="button small">Launch</a>
+                </div>
+                <div class="app-card">
+                    <div class="app-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"></path><path d="m19 9-5 5-4-4-3 3"></path></svg>
+                    </div>
+                    <h3 class="app-title">Orange</h3>
+                    <p class="app-description">Visual data mining</p>
+                    <a href="#" onclick="window.location='orange-canvas'" class="button small">Launch</a>
+                </div>
+                <div class="app-card">
+                    <div class="app-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                    </div>
+                    <h3 class="app-title">RStudio</h3>
+                    <p class="app-description">R statistical computing</p>
+                    <a href="#" onclick="window.location='rstudio'" class="button small">Launch</a>
+                </div>
+                <div class="app-card">
+                    <div class="app-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path><path d="m2 12 3-3 3 3-3 3-3-3Z"></path><path d="m16 6 3 3-3 3"></path><path d="M8 6h8"></path><path d="M16 18h-4"></path><path d="M8 18h0"></path></svg>
+                    </div>
+                    <h3 class="app-title">KNIME</h3>
+                    <p class="app-description">Data analytics platform</p>
+                    <a href="#" onclick="window.location='/opt/knime/knime'" class="button small">Launch</a>
+                </div>
+            </div>
+
+            <h2 class="section-title">Development Tools</h2>
+            <div class="app-grid">
+                <div class="app-card">
+                    <div class="app-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 16 4-4-4-4"></path><path d="m6 8-4 4 4 4"></path><path d="m14.5 4-5 16"></path></svg>
+                    </div>
+                    <h3 class="app-title">VS Code</h3>
+                    <p class="app-description">Code editor</p>
+                    <a href="#" onclick="window.location='code'" class="button small">Launch</a>
+                </div>
+                <div class="app-card">
+                    <div class="app-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H7a2 2 0 0 0-2 2v5a2 2 0 0 1-2 2 2 2 0 0 1 2 2v5a2 2 0 0 0 2 2h1"></path><path d="M16 3h1a2 2 0 0 1 2 2v5a2 2 0 0 0 2 2 2 2 0 0 0-2 2v5a2 2 0 0 1-2 2h-1"></path></svg>
+                    </div>
+                    <h3 class="app-title">Spyder</h3>
+                    <p class="app-description">Scientific Python IDE</p>
+                    <a href="#" onclick="window.location='spyder'" class="button small">Launch</a>
+                </div>
+                <div class="app-card">
+                    <div class="app-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2H3v16h5v4l4-4h5l4-4V2z"></path><path d="M10 8v3"></path><path d="M14 8v3"></path></svg>
+                    </div>
+                    <h3 class="app-title">Docker</h3>
+                    <p class="app-description">Container platform</p>
+                    <a href="#" onclick="window.location='xfce4-terminal -e &quot;docker ps&quot;'" class="button small">Launch</a>
+                </div>
+                <div class="app-card">
+                    <div class="app-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.29 7 12 12 20.71 7"></polyline><line x1="12" x2="12" y1="22" y2="12"></line></svg>
+                    </div>
+                    <h3 class="app-title">Anaconda</h3>
+                    <p class="app-description">Package manager</p>
+                    <a href="#" onclick="window.location='anaconda-navigator'" class="button small">Launch</a>
+                </div>
+            </div>
+
+            <h2 class="section-title">Example Applications</h2>
+            <div class="app-grid">
+                <div class="app-card">
+                    <div class="app-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9h18v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9Z"></path><path d="m3 9 2.45-4.9A2 2 0 0 1 7.24 3h9.52a2 2 0 0 1 1.8 1.1L21 9"></path><path d="M12 3v6"></path></svg>
+                    </div>
+                    <h3 class="app-title">Streamlit</h3>
+                    <p class="app-description">Data app example</p>
+                    <a href="#" onclick="window.location='bash -c &quot;cd /usr/share/neuronos/examples/streamlit && streamlit run example_app.py&quot;'" class="button small">Launch</a>
+                </div>
+                <div class="app-card">
+                    <div class="app-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"></rect><path d="M7 7h10"></path><path d="M7 12h10"></path><path d="M7 17h10"></path></svg>
+                    </div>
+                    <h3 class="app-title">Gradio</h3>
+                    <p class="app-description">ML interface example</p>
+                    <a href="#" onclick="window.location='bash -c &quot;cd /usr/share/neuronos/examples/gradio && python3 example_app.py&quot;'" class="button small">Launch</a>
+                </div>
+                <div class="app-card">
+                    <div class="app-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                    </div>
+                    <h3 class="app-title">HF Text Gen</h3>
+                    <p class="app-description">Text generation demo</p>
+                    <a href="#" onclick="window.location='bash -c &quot;cd /usr/share/neuronos/examples/huggingface && python3 text_generation.py&quot;'" class="button small">Launch</a>
+                </div>
+                <div class="app-card">
+                    <div class="app-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"></path><path d="M8.5 8.5v.01"></path><path d="M16 15.5v.01"></path><path d="M12 12v.01"></path><path d="M11 17v.01"></path><path d="M7 14v.01"></path></svg>
+                    </div>
+                    <h3 class="app-title">Classifier</h3>
+                    <p class="app-description">Interactive ML demo</p>
+                    <a href="#" onclick="window.location='bash -c &quot;cd /usr/share/neuronos/examples/sklearn && python3 interactive_classifier.py&quot;'" class="button small">Launch</a>
+                </div>
+            </div>
+        </div>
+        <!-- Help & Support Tab -->
+        <div id="help" class="tab-content">
+            <div class="card hero-card">
+                <div class="card-content">
+                    <h2 class="card-title">Help & Support</h2>
+                    <p class="card-description">Need help with NeuronOS? Here are some resources to get you started.</p>
+                </div>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path></svg>
+                    </div>
+                    <h3 class="feature-title">Documentation</h3>
+                    <p class="feature-description">Check out our comprehensive documentation:</p>
+                    <ul class="feature-list">
+                        <li>User guides</li>
+                        <li>Tutorials</li>
+                        <li>API references</li>
+                        <li>Example projects</li>
+                    </ul>
+                    <a href="https://github.com/neuronos/neuronos" class="button small">View Docs</a>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    </div>
+                    <h3 class="feature-title">Community</h3>
+                    <p class="feature-description">Join our community for help and discussions:</p>
+                    <ul class="feature-list">
+                        <li>GitHub repository</li>
+                        <li>Discord server</li>
+                        <li>Forum</li>
+                        <li>Social media</li>
+                    </ul>
+                    <a href="https://github.com/neuronos/neuronos" class="button small">Join Community</a>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="m15 9-6 6"></path><path d="m9 9 6 6"></path></svg>
+                    </div>
+                    <h3 class="feature-title">Report Issues</h3>
+                    <p class="feature-description">Found a bug or have a suggestion?</p>
+                    <ul class="feature-list">
+                        <li>GitHub issues</li>
+                        <li>Feature requests</li>
+                        <li>Bug reports</li>
+                        <li>Contributions</li>
+                    </ul>
+                    <a href="https://github.com/neuronos/neuronos/issues" class="button small">Report Issue</a>
+                </div>
+            </div>
+
+            <div class="card system-info-card">
+                <div class="card-content">
+                    <h2 class="card-title">System Information</h2>
+                    <div class="system-info">
+                        <div class="info-item">
+                            <span class="info-label">NeuronOS Version:</span>
+                            <span class="info-value">0.1.0</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Based on:</span>
+                            <span class="info-value">Ubuntu 22.04 LTS</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Kernel:</span>
+                            <span class="info-value">Linux 5.15</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Desktop Environment:</span>
+                            <span class="info-value">XFCE 4.16</span>
+                        </div>
+                    </div>
+                    <a href="#" onclick="window.location='xfce4-terminal -e &quot;neofetch&quot;'" class="button secondary">Show System Info</a>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>NeuronOS - Created with <span class="heart">❤</span> for Data Science and AI</p>
+            <p>Version 0.1.0 | © 2025 NeuronOS Team</p>
+        </footer>
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+
+            // Hide all tab content
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+
+            // Remove active class from all tabs
+            tablinks = document.getElementsByClassName("tab");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+
+            // Show the current tab and add active class to the button
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+</body>
+</html>
